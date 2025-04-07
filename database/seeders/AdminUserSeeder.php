@@ -21,10 +21,10 @@ class AdminUserSeeder extends Seeder
                 'course' => 'aucun',
                 'password' => Hash::make('admin123'),
                 'role' => 'admin',
+                'accepted' => true, // ✅ Ajouté
             ]
         );
-
-        // ✅ Admin 2 : Générique
+        
         User::updateOrCreate(
             ['email' => 'admin2@admin.com'],
             [
@@ -35,7 +35,9 @@ class AdminUserSeeder extends Seeder
                 'course' => 'aucun',
                 'password' => Hash::make('admin456'),
                 'role' => 'admin',
+                'accepted' => true, // ✅ Ajouté
             ]
         );
+        
     }
 }
