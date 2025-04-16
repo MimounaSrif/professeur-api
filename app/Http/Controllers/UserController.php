@@ -14,24 +14,42 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        // Option : vérifier si l’utilisateur a accès à ce cours (si cours assigné)
-        if ($user->course !== $id) {
+        // Comparaison insensible à la casse
+        if (strtolower($user->course) !== strtolower($id)) {
             return response()->json(['error' => 'Vous n\'avez pas accès à ce cours.'], 403);
         }
 
-        // Exemple de données fictives du cours (à remplacer par une table 'courses' si tu veux plus tard)
+        // Liste de cours fictive (tu peux remplacer par une table plus tard)
         $courses = [
             'français' => [
                 'title' => 'Cours de Français',
                 'description' => 'Apprenez la grammaire, la conjugaison et le vocabulaire français.',
+                'instructor' => '....',
+                'lessons' => [
+                    ['title' => 'Introduction au français'],
+                    ['title' => 'Grammaire de base'],
+                    ['title' => 'Exercices pratiques']
+                ]
             ],
             'anglais' => [
                 'title' => 'Cours d’Anglais',
                 'description' => 'Improve your grammar, vocabulary, and conversation in English.',
+                'instructor' => '....',
+                'lessons' => [
+                    ['title' => 'English Basics'],
+                    ['title' => 'Simple Present'],
+                    ['title' => 'Speaking Practice']
+                ]
             ],
             'allemand' => [
                 'title' => 'Kurs Deutsch',
                 'description' => 'Lernen Sie die Grundlagen der deutschen Sprache.',
+                'instructor' => '....',
+                'lessons' => [
+                    ['title' => 'Deutsche Einführung'],
+                    ['title' => 'Verben und Artikel'],
+                    ['title' => 'Dialogübungen']
+                ]
             ],
         ];
 
@@ -42,8 +60,12 @@ class UserController extends Controller
         }
 
         return response()->json([
-            'course' => $courses[$courseKey],
-            'user' => $user
+            'id' => $id,
+            'title' => $courses[$courseKey]['title'],
+            'description' => $courses[$courseKey]['description'],
+            'instructor' => $courses[$courseKey]['instructor'],
+            'lessons' => $courses[$courseKey]['lessons'],
+            'created_at' => $user->created_at
         ]);
     }
 }
