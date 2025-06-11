@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Publication;
@@ -52,7 +53,7 @@ class AdminPublicationController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'image' => 'nullable|file|mimes:jpg,jpeg,png,webp,mp4|max:10240'
+            'image' => 'nullable|file|mimes:jpg,jpeg,png,webp,mp4|max:51200'
         ]);
 
         if ($request->hasFile('image')) {
